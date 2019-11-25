@@ -1,5 +1,5 @@
 			function init() {
-
+			  window.onload = init();
 			  window.addEventListener('scroll', function (e) {
 			    var distanceY = window.pageYOffset || document.documentElement.scrollTop,
 			      shrinkOn = 300,
@@ -19,22 +19,41 @@
 			  dataType: 'json',
 			  success: function (data) {
 
+			    var menu = menuBuilder(data.menu);
 
-			    if (data.menu.length > 0) {
-			      data.menu.forEach(function (data) {
+			    $('nav').append(menu);
 
-
-			        console.log(data.menuName);
-			        console.log(data.menuLink);
-
-			        $('nav').append('<a href="' + data.MenuLink + '"> ' + data.MenuName + '</nav>');
-
-			      });
-			    }
 			  },
+
+
 			  error: function () {
 			    console.log('all not good');
 			  }
 			});
+			}
 
-			window.onload = init();
+			function menuBuilder(obj) {
+			  var theMenu = '';
+
+			  if (obj.length > 0) {
+			    theMenu = theMenu + '<ul>';
+
+			    obj.forEach(function (item) {
+			        theMenu = theMenu + '<li><a href="#">' + item.MenuName + '</a>';
+
+			        if (item.Menus.length > 0) {
+			          theMenu = theMenu + menuBuilder(item.Menus);
+
+					}
+			          theMenu = theMenu + '</li>';
+			        });
+				  
+				  theMenu = theMenu + '</ul>';
+			    }
+			  } else {
+			    console.log('no data');
+			  }
+
+			}
+			return theMenu;
+			}
