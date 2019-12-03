@@ -1,5 +1,6 @@
-			function init() {
-			  window.onload = init();
+			window.onload = init();
+             function init() {
+			  
 			  window.addEventListener('scroll', function (e) {
 			    var distanceY = window.pageYOffset || document.documentElement.scrollTop,
 			      shrinkOn = 300,
@@ -12,7 +13,7 @@
 			      }
 			    }
 			  });
-			}
+			
 			$.ajax({
 			  method: 'GET',
 			  url: 'assets/data/menu.json',
@@ -29,8 +30,10 @@
 			  error: function () {
 			    console.log('all not good');
 			  }
-			});
-			}
+			})
+
+            }
+			
 
 			function menuBuilder(obj) {
 			  var theMenu = '';
@@ -49,11 +52,12 @@
 			        });
 				  
 				  theMenu = theMenu + '</ul>';
-			    }
-			  } else {
+			    }			  
+				
+				else {
 			    console.log('no data');
 			  }
 
-			}
+			
 			return theMenu;
 			}
